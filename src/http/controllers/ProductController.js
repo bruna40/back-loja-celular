@@ -48,4 +48,15 @@ export class ProductController {
       res.status(500).json({ error: 'Erro interno do servidor' })
     }
   }
+
+  static async deleteProduct(req, res) {
+    const id = req.params.id
+    try {
+      await productService.deleteProduct(id)
+      res.status(200).send()
+    } catch (error) {
+      console.error('Erro ao deletar produto:', error)
+      res.status(500).json({ error: 'Erro interno do servidor' })
+    }
+  }
 }

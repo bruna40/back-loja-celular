@@ -54,4 +54,14 @@ export class ProductModel {
 
     return product
   }
+
+  static async deleteById(id) {
+    const product = await prisma.product.delete({
+      where: {
+        id,
+      },
+    })
+
+    return product
+  }
 }

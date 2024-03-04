@@ -47,4 +47,12 @@ export class ProductService {
       throw new Error(`Erro ao atualizar produto: ${error.message}`)
     }
   }
+
+  async deleteProduct(productId) {
+    try {
+      await this.productModel.deleteById(productId)
+    } catch (error) {
+      throw new Error(`Erro ao deletar produto: ${error.message}`)
+    }
+  }
 }
