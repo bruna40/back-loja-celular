@@ -7,6 +7,10 @@ const app = express()
 app.use(express.json())
 app.use(registerRouter)
 app.use(productRouter)
-app.use(cors())
+app.use(
+  cors({
+    origin: 'https://loja-celular-iota.vercel.app',
+  }),
+)
 
 export default app
