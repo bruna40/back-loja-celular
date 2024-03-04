@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import { RegisterController } from '../controllers/register.js'
+import { UserController } from '../controllers/UserController.js'
 
-const registerRouter = Router()
+const userRouter = Router()
 
-registerRouter.get('/users', RegisterController.userAll)
-registerRouter.get('/users/:userId', RegisterController.userId)
-registerRouter.post('/users', RegisterController.register)
-registerRouter.put('/users/:userId', RegisterController.updateUser)
-registerRouter.delete('/users/:userId', RegisterController.deleteUser)
+userRouter.get('/users', UserController.userAll)
+userRouter.get('/users/:userId', UserController.userId)
+userRouter.post('/users', UserController.create)
+userRouter.put('/users/:userId', UserController.updateUser)
+userRouter.delete('/users/:userId', UserController.deleteUser)
 
-export default registerRouter
+export default userRouter

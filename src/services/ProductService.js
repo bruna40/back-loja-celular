@@ -1,15 +1,15 @@
 import { ProductModel } from '../models/ProductModel.js'
-import { PrismaUsersRepository } from '../models/RegisterModel.js'
+import { UserModel } from '../models/UserModel.js'
 
 export class ProductService {
   constructor() {
     this.productModel = ProductModel
-    this.registerModel = new PrismaUsersRepository()
+    this.userModel = UserModel
   }
 
   async createProduct({ name, brand, model, price, color, userId }) {
     try {
-      const user = await this.registerModel.findById(userId)
+      const user = await this.userModel.findById(userId)
 
       if (user) {
         await this.productModel.create({

@@ -1,15 +1,19 @@
 import { prisma } from '../lib/prisma.js'
 
-export class PrismaUsersRepository {
-  async create(data) {
+export class UserModel {
+  static async create({ name, email, password }) {
     const user = await prisma.user.create({
-      data,
+      data: {
+        name,
+        email,
+        password_hash: password,
+      },
     })
 
     return user
   }
 
-  async findById(id) {
+  static async findById(id) {
     const user = await prisma.user.findUnique({
       where: {
         id,
@@ -19,7 +23,7 @@ export class PrismaUsersRepository {
     return user
   }
 
-  async findByEmail(email) {
+  static async findByEmail(email) {
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -29,24 +33,24 @@ export class PrismaUsersRepository {
     return user
   }
 
-  async findMany() {
+  static async findMany() {
     const user = await prisma.user.findMany()
 
     return user
   }
 
-  async userUpdate(data) {
+  static async userUpdate(userId, newUser) {
     const user = await prisma.user.update({
       where: {
-        id: data.id,
+        id: userId,
       },
-      data,
+      data: newUser,
     })
 
     return user
   }
 
-  async userDelete(id) {
+  static async deleteUser(id) {
     const user = await prisma.user.delete({
       where: {
         id,
