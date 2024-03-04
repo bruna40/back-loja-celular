@@ -28,4 +28,21 @@ export class PrismaUsersRepository {
 
     return user
   }
+
+  async findMany() {
+    const user = await prisma.user.findMany()
+
+    return user
+  }
+
+  async update(data) {
+    const user = await prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    })
+
+    return user
+  }
 }
