@@ -28,4 +28,30 @@ export class ProductModel {
 
     return products
   }
+
+  static async findAll() {
+    const products = await prisma.product.findMany()
+
+    return products
+  }
+
+  static async findById(id) {
+    const product = await prisma.product.findUnique({
+      where: {
+        id,
+      },
+    })
+    return product
+  }
+
+  static async updateById(productId, newData) {
+    const product = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: newData,
+    })
+
+    return product
+  }
 }

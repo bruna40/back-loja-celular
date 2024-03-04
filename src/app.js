@@ -1,5 +1,5 @@
 import express from 'express'
-import registerRouter from './http/routes/registerRouter.js'
+import registerRouter from './http/routes/RegisterRouter.js'
 import productRouter from './http/routes/ProductRouter.js'
 import cors from 'cors'
 

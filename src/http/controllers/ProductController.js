@@ -1,9 +1,9 @@
-import { ProductService } from '../../services/Product.js'
+import { ProductService } from '../../services/ProductService.js'
 
 const productService = new ProductService()
 
 export class ProductController {
-  async createProduct(req, res) {
+  static async createProduct(req, res) {
     try {
       const { name, brand, model, price, color, userId } = req.body
 
@@ -29,5 +29,23 @@ export class ProductController {
     })
 
     res.status(200).json(products)
+  }
+
+  static async getAllProducts(req, res) {
+    const products = await productService.getAllProducts()
+
+    res.status(200).json(products)
+  }
+
+  static async updateProduct(req, res) {
+    const id = req.params.id
+    const product = req.body
+    try {
+      await productService.updateProduct(id, product)
+      res.status(200).send()
+    } catch (error) {
+      console.error('Erro ao atualizar produto:', error)
+      res.status(500).json({ error: 'Erro interno do servidor' })
+    }
   }
 }

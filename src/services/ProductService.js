@@ -1,5 +1,5 @@
 import { ProductModel } from '../models/ProductModel.js'
-import { PrismaUsersRepository } from './../models/RegisterModel.js'
+import { PrismaUsersRepository } from '../models/RegisterModel.js'
 
 export class ProductService {
   constructor() {
@@ -29,5 +29,22 @@ export class ProductService {
   async getAllProductsByUserId({ userId }) {
     const products = await this.productModel.findByUserId(userId)
     return products
+  }
+
+  async getAllProducts() {
+    const products = await this.productModel.findAll()
+    return products
+  }
+
+  async updateProduct(productId, updatedProductData) {
+    try {
+      const productUpdated = await this.productModel.updateById(
+        productId,
+        updatedProductData,
+      )
+      return productUpdated
+    } catch (error) {
+      throw new Error(`Erro ao atualizar produto: ${error.message}`)
+    }
   }
 }
