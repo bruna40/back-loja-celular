@@ -49,4 +49,28 @@ export class RegisterController {
       password_hash: undefined,
     })
   }
+
+  static async updateUser(req, res) {
+    const validateUser = z.object({
+      userId: z.string(),
+    })
+    const { userId } = validateUser.parse(req.params)
+    const registerService = new RegisterService()
+    await registerService.userUpdate({ userId })
+
+    return res.status(204).json({
+      userId,
+    })
+  }
+
+  static async deleteUser(req, res) {
+    const validateUser = z.object({
+      userId: z.string().uuid(),
+    })
+    const { userId } = validateUser.parse(req.params)
+    const registerService = new RegisterService()
+    await registerService.userDelete({ userId })
+
+    return res.status(204).send()
+  }
 }

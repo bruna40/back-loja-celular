@@ -48,5 +48,25 @@ export class RegisterService {
     if (!user) {
       console.error('User not found')
     }
+
+    await this.usersRepository.userUpdate(user)
+
+    return {
+      user,
+    }
+  }
+
+  async userDelete({ userId }) {
+    const user = await this.usersRepository.findById(userId)
+
+    if (!user) {
+      console.error('User not found')
+    }
+
+    await this.usersRepository.userDelete(user)
+
+    return {
+      user,
+    }
   }
 }

@@ -35,12 +35,22 @@ export class PrismaUsersRepository {
     return user
   }
 
-  async update(data) {
+  async userUpdate(data) {
     const user = await prisma.user.update({
       where: {
         id: data.id,
       },
       data,
+    })
+
+    return user
+  }
+
+  async userDelete(id) {
+    const user = await prisma.user.delete({
+      where: {
+        id,
+      },
     })
 
     return user
