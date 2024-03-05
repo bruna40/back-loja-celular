@@ -18,21 +18,6 @@ export class UserController {
     return response.status(201).send()
   }
 
-  static async userId(request, response) {
-    const user = await userService.userProfileId({
-      userId: request.params.userId,
-    })
-
-    return response.status(200).json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        password_hash: undefined,
-      },
-    })
-  }
-
   static async userEmail(request, response) {
     const user = await userService.userEmail({
       email: request.params.email,
