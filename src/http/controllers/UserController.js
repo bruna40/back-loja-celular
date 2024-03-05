@@ -33,6 +33,21 @@ export class UserController {
     })
   }
 
+  static async userEmail(request, response) {
+    const user = await userService.userEmail({
+      email: request.params.email,
+    })
+
+    return response.status(200).json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password_hash: undefined,
+      },
+    })
+  }
+
   static async userAll(request, response) {
     const user = await userService.userAll()
 

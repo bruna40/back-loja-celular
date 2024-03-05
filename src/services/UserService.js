@@ -30,6 +30,11 @@ export class UserService {
     return user
   }
 
+  async userEmail({ email }) {
+    const user = await this.userModel.findByEmail(email)
+    return user
+  }
+
   async userAll() {
     const user = await this.userModel.findMany()
 
