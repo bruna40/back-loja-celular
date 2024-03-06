@@ -10,29 +10,22 @@ export class UserService {
   }
 
   async createUser({ name, email, password }) {
-    const password_hash = await hash(password, 6)
+    try {
+      const userWithEmail = await this.userModel.findByEmail(email)
+      const password_hash = await hash(password, 6)
 
-    const userWithEmail = await this.userModel.findByEmail(email)
+      if (userWithEmail) {
+        throw new UserAlreadyExistsError()
+      }
 
-    if (userWithEmail) {
-      throw new UserAlreadyExistsError()
+      await this.userModel.create({
+        name,
+        email,
+        password: password_hash,
+      })
+    } catch (error) {
+      throw new Error('Erro ao cadastrar usuario')
     }
-
-    await this.userModel.create({
-      name,
-      email,
-      password: password_hash,
-    })
-  }
-
-  async userProfileId({ userId }) {
-    const user = await this.userModel.findById(userId)
-    return user
-  }
-
-  async userEmail({ email }) {
-    const user = await this.userModel.findByEmail(email)
-    return user
   }
 
   async userAll() {
@@ -41,9 +34,17 @@ export class UserService {
     return user
   }
 
-  async userUpdate(userId, updateUser) {
+  async userProfileId({ userId }) {
+    const user = await this.userModel.findById(userId)
+    if (!user) {
+      throw new Error('Usuario informado não cadastrado!')
+    }
+    return user
+  }
+
+  async userUpdate(userId) {
     try {
-      const user = await this.userModel.userUpdate(userId, updateUser)
+      const user = await this.userModel.userUpdate(userId)
 
       return user
     } catch (err) {
@@ -51,7 +52,13 @@ export class UserService {
     }
   }
 
+  async userEmail({ email }) {
+    const user = await this.userModel.findByEmail(email)
+    return user
+  }
+
   async userDelete(userId) {
-    await this.userModel.deleteUser(userId)
+    const user = await this.userModel.deleteUser(userId)
+    return user
   }
 }

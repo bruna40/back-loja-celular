@@ -44,10 +44,10 @@ export class UserController {
 
   static async updateUser(req, res) {
     const id = req.params.id
-    const user = req.body
+    const { name, email } = req.body
 
     try {
-      await userService.userUpdate(id, user)
+      await userService.userUpdate({ id, name, email })
       res.status(200).send()
     } catch (err) {
       console.error('Erro ao atualizar usuário:', err)

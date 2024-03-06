@@ -39,15 +39,20 @@ export class UserModel {
     return user
   }
 
-  static async userUpdate(userId, newUser) {
-    const user = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: newUser,
-    })
-
-    return user
+  static async userUpdate(updateUser) {
+    try {
+      await prisma.user.update({
+        where: {
+          id: updateUser.id,
+        },
+        data: {
+          name: updateUser.name,
+          email: updateUser.email,
+        },
+      })
+    } catch (err) {
+      throw new Error('Erro ao editar usuario!')
+    }
   }
 
   static async deleteUser(id) {
