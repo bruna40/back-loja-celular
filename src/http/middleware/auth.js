@@ -9,7 +9,7 @@ async function authenticate(request, response, next) {
   const [, acessToken] = token.split(' ')
   try {
     jwt.verify(acessToken, secret)
-    const { id, email } = await jwt.decode(acessToken)
+    const { id, email } = jwt.decode(acessToken)
     request.userId = id
     request.email = email
     return next()

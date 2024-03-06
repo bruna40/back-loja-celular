@@ -6,7 +6,7 @@ import cors from 'cors'
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({ credentials: true }))
 app.use(LoginRouter, registerRouter, productRouter)
 
 export default app
