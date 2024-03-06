@@ -18,18 +18,13 @@ export class UserController {
     return response.status(201).send()
   }
 
-  static async userEmail(request, response) {
-    const user = await userService.userEmail({
-      email: request.params.email,
-    })
+  static async getById(request, response) {
+    const { userId } = request.params
+    const user = await userService.userProfileId({ userId })
 
     return response.status(200).json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        password_hash: undefined,
-      },
+      user,
+      password_hash: undefined,
     })
   }
 
@@ -43,7 +38,7 @@ export class UserController {
   }
 
   static async updateUser(req, res) {
-    const id = req.params.id
+    const id = req.params.userId
     const { name, email } = req.body
 
     try {
@@ -56,7 +51,7 @@ export class UserController {
   }
 
   static async deleteUser(req, res) {
-    const id = req.params.id
+    const id = req.params.userId
     try {
       await userService.userDelete(id)
       res.status(200).send()

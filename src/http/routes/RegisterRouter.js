@@ -3,12 +3,12 @@ import { UserController } from '../controllers/UserController.js'
 import { authenticate } from '../middleware/auth.js'
 
 const userRouter = Router()
-userRouter.use(authenticate)
 
-userRouter.get('/users', UserController.userAll)
-userRouter.get('/users/:email', UserController.userEmail)
 userRouter.post('/users', UserController.create)
-userRouter.put('/users/:userId', UserController.updateUser)
-userRouter.delete('/users/:userId', UserController.deleteUser)
+
+userRouter.get('/users', authenticate, UserController.userAll)
+userRouter.get('/users/:userId', authenticate, UserController.getById)
+userRouter.put('/users/:userId', authenticate, UserController.updateUser)
+userRouter.delete('/users/:userId', authenticate, UserController.deleteUser)
 
 export default userRouter
