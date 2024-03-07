@@ -1,7 +1,14 @@
-## API REST para Cadastro de Usuários e Celulares
+# API REST para Cadastro de Usuários e Celulares
 
-### Descrição
+## Descrição
 Esta API REST foi desenvolvida para permitir o cadastro de usuários e celulares, onde o cadastro de celulares está associado ao ID do usuário.
+
+## Tecnologias Utilizadas
+- Node.js
+- Express
+- PostgreSQL
+- Prisma
+- Obs.: Optei por utilizar o Prisma como ORM, pois o Sequelize estava dando problema ao conectar com o banco de dados da vercel.
 
 ## Rotas de Usuário
 
